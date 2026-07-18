@@ -20,3 +20,10 @@
   allow = "direnv allow";
   deny  = "direnv deny";
 }
+
+{
+  # Quick network control panel shortcuts
+  vpn-up   = "sudo systemctl start wireguard-thevoid.service";
+  vpn-down = "sudo systemctl stop wireguard-thevoid.service";
+  vpn-stat = "sudo wg show"; # Instantly prints peers, data sent, and ping latency
+}
