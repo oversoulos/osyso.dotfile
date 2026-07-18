@@ -1,5 +1,5 @@
 {
-  description = "Unified DevOps Workspace Construction Kit";
+  description = "Devops";
   
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
