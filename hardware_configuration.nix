@@ -34,8 +34,8 @@
   fileSystems."/home" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@home" "compress=zstd" "noatime" ];
-    };
+        { device = "/dev/disk/by-uuid/36772803-a096-46c2-8aaa-146ba0590637"; }
+  ];
 
    fileSystems."/boot" =
     { device = "/dev/nvme0n1p1"; 
