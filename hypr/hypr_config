@@ -1,0 +1,109 @@
+
+oversoul= 1, gapsin:5, gapsout:10, border:true, decorate:true, default:true
+devops = 3, gapsin:8, gapsout:16, border:true, decorate:true
+editor = 2, gapsin:0, gapsout:0, border:false, decorate:false
+00
+
+
+
+
+# =====================================================================
+# --- PHASE 4B: SELF-ORGANIZING WINDOW RULES ---
+# =====================================================================
+
+# 1. Force your specific graphic creation tools to Workspace 2 (Design)
+windowrulev2 = workspace 2, class:^(gimp-.*)$
+windowrulev2 = workspace 2, class:^(org.inkscape.Inkscape)$
+windowrulev2 = workspace 2, class:^(krita)$
+windowrulev2 = workspace 2, class:^(peasce)$
+
+# 2. Force your chat platforms to Workspace 3 (Media/Reference)
+windowrulev2 = workspace 3, class:^(discord)$
+windowrulev2 = workspace 3, class:^(org.telegram.desktop)$
+windowrulev2 = workspace 3, class:^(spotify)$
+
+# 3. Make sure pop-up utility applets don't try to stretch full-screen
+# (This keeps your file extractors and bluetooth panels as clean, tiny floats)
+windowrulev2 = float, class:^(xarchiver)$
+windowrulev2 = float, class:^(blueman-manager)$
+windowrulev2 = float, class:^(pavucontrol)$
+
+# =====================================================================
+# --- PHASE 4C: MASTER AESTHETICS (GAPS & ROUNDING) ---
+# =====================================================================
+
+general {
+    gaps_in = 6                   # Gap between windows
+    gaps_out = 12                 # Gap between windows and screen edges
+    border_size = 2               # Outer window border width (pixels)
+    
+    # Gradient active border (Cyan to Vibrant Purple)
+    col.active_border = rgba(33cceeee) rgba(ff79c6ee) 45deg
+    col.inactive_border = rgba(595959aa)
+}
+
+decoration {
+    rounding = 10                 # Smoothly rounds your window edges
+    active_opacity = 1.0          # Opaque when working
+    inactive_opacity = 0.9        # Subtle dim on background apps
+}
+
+animations {
+    enabled = true
+    bezier = snapCurve, 0.1, 0.9, 0.2, 1.0
+    animation = windows, 1, 6, snapCurve
+    animation = workspaces, 1, 5, default, slide
+}
+
+
+# =====================================================================
+# --- PHASE 4D: ACTIVITY KEYBINDS & QUICK-DRAW HOTKEYS ---
+# =====================================================================
+
+# Use the 'Super' key (Windows key) as your main shortcut modifier
+$mainMod = SUPER
+
+# Instant Terminal / File System Quick-Draw Hotkeys
+bind = $mainMod, RETURN, exec, ghostty          # Hitting Enter draws a new command terminal
+bind = $mainMod, E, exec, nemo                  # Hitting E draws your file tree manager
+bind = $mainMod, SPACE, exec, rofi-wayland -show drun # Hitting Space draws your app drawer
+
+# Basic Window Controls
+bind = $mainMod, Q, killactive                  # Close focused program window
+bind = $mainMod, F, fullscreen, 0               # Toggle full screen toggle
+bind = $mainMod, V, togglefloating,             # Force a window to float over your canvas
+
+# Workspace Switching Hotkeys
+bind = $mainMod, 1, workspace, 1                # Move focus to Dev space
+bind = $mainMod, 2, workspace, 2                # Move focus to Graphic space
+bind = $mainMod, 3, workspace, 3                # Move focus to Media space
+
+# Move active windows to different workspaces (For drag and drop operations)
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+
+
+# =====================================================================
+# --- SLOPPY PLUGIN STUBS (Commented out with '#' for later use) ---
+# =====================================================================
+
+# plugin {
+#     hot-edge {
+#         edge1 {
+#             enabled = 1
+#             side = right
+#             trigger_width = 10
+#             dwell_time = 120
+#             auto_hide = true
+#             command = pyprctl toggle monitor_shelf
+#         }
+#     }
+#     
+#     hyprglass {
+#         enabled = true
+#         default_theme = dark
+#         default_preset = clear
+#         tint_color = rgba(8899aa22)
+#     }
+# }
