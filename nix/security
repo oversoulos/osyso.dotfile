@@ -1,0 +1,26 @@
+{ pkgs, ... }:
+
+{
+  # Pure Network Protection Only
+  networking.firewall.enable = true;
+
+  # Core Hardening
+  security.protectKernelImage = true;
+  systemd.coredump.enable = false;
+
+  # Fail2ban Intrusion Defense
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;
+    bantime = "10m";
+  };
+
+  # Real-Time Desktop Alert Daemon
+  systemd.services."desktop-alert@" = {
+    description = "Pushes background service errors to your display layer";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.libnotify}/bin/notify-send 'System Alert' 'Background service [%i] has crashed!' --urgency=critical";
+    };
+  };
+}
