@@ -1,34 +1,24 @@
 
 oversoul= 1, gapsin:5, gapsout:10, border:true, decorate:true, default:true
-devops = 3, gapsin:8, gapsout:16, border:true, decorate:true
-editor = 2, gapsin:0, gapsout:0, border:false, decorate:false
-00
+####drop down or hot key drop down command center controller for system, utils, ai pipeline, hosting, vpn, network, security, workstation progress sats, 
+mirrored in cli.. sys moniters on default, workstation sit rep  updates with activity all corrilating progress. 
+#### hotkey chat box interface with ai when its active. small black screen with neon purple thin border. 
+#### quater window with full screen toggle for youtube/spotify tab(spotify widgetfor workspaces) larger window with obsidan/file manager tabs. 
+#### will default to this workspace for casual usage. hot edge, hidden/docked and hotkeyed  for terminal and note pad from top and bottom left , 
+discord(idles, no backgrown after idling out unless plugins to external active)  and social top bottom right. app search bar/cmd line/web search bar
+either stacked or itnegrated bottom center,system/network montiors bottom right and left)
 
+devops = 3, gapsin:8, gapsout:16, border:true, decorate:minimal 
+##simple shelled environment, locked into dev folder tree, new projects triger automatatic flake/shell 
+iso launch. same apps docked around the screens hot edges. devops devshell devenv or whatever, isolated sandbox for project management and testing with localhost, 
+local ai, and publishing pipeline. dev tools locked into this space exclusively
 
+editor = 3, gapsin:0, gapsout:0, border:false, decorate:minilmal inverted fromt he other dark schema. same as dev, but with my image archive, and editing tools for
+images and writing. will use this space for school as well so obsidian  tabbed into  one window, browser tapped into main window, inactive when tooling.. 
 
+alwayss silence non syetem critical background processes.
 
-# =====================================================================
-# --- PHASE 4B: SELF-ORGANIZING WINDOW RULES ---
-# =====================================================================
-
-# 1. Force your specific graphic creation tools to Workspace 2 (Design)
-windowrulev2 = workspace 2, class:^(gimp-.*)$
-windowrulev2 = workspace 2, class:^(org.inkscape.Inkscape)$
-windowrulev2 = workspace 2, class:^(krita)$
-windowrulev2 = workspace 2, class:^(peasce)$
-
-# 2. Force your chat platforms to Workspace 3 (Media/Reference)
-windowrulev2 = workspace 3, class:^(discord)$
-windowrulev2 = workspace 3, class:^(org.telegram.desktop)$
-windowrulev2 = workspace 3, class:^(spotify)$
-
-# 3. Make sure pop-up utility applets don't try to stretch full-screen
-# (This keeps your file extractors and bluetooth panels as clean, tiny floats)
-windowrulev2 = float, class:^(xarchiver)$
-windowrulev2 = float, class:^(blueman-manager)$
-windowrulev2 = float, class:^(pavucontrol)$
-
-# =====================================================================
+# ====================================================================
 # --- PHASE 4C: MASTER AESTHETICS (GAPS & ROUNDING) ---
 # =====================================================================
 
@@ -37,23 +27,26 @@ general {
     gaps_out = 12                 # Gap between windows and screen edges
     border_size = 2               # Outer window border width (pixels)
     
-    # Gradient active border (Cyan to Vibrant Purple)
+    # dark back ground with minima hazy neon pallet, irridecent  boarders, window frames, backlit , soft 
     col.active_border = rgba(33cceeee) rgba(ff79c6ee) 45deg
     col.inactive_border = rgba(595959aa)
 }
 
 decoration {
     rounding = 10                 # Smoothly rounds your window edges
-    active_opacity = 1.0          # Opaque when working
+    active_opacity = 1.0          # Opaque when working transparent lur when ot of focus
     inactive_opacity = 0.9        # Subtle dim on background apps
-}
-
+}  
+ 
 animations {
     enabled = true
     bezier = snapCurve, 0.1, 0.9, 0.2, 1.0
     animation = windows, 1, 6, snapCurve
     animation = workspaces, 1, 5, default, slide
 }
+
+### bold nerd font  that i can hotkey from standard size, about 26 for when im sitting further from my screen (applies to mouse  muted flat  periwinkle,  pink , yellows to comforrtably contrast 
+darker back ground windows.. 
 
 
 # =====================================================================
@@ -74,9 +67,9 @@ bind = $mainMod, F, fullscreen, 0               # Toggle full screen toggle
 bind = $mainMod, V, togglefloating,             # Force a window to float over your canvas
 
 # Workspace Switching Hotkeys
-bind = $mainMod, 1, workspace, 1                # Move focus to Dev space
-bind = $mainMod, 2, workspace, 2                # Move focus to Graphic space
-bind = $mainMod, 3, workspace, 3                # Move focus to Media space
+bind = $mainMod, 1, workspace, 1                # Move focus to oversoul(command center drop in dash board command center over casual/multiuse computing space)
+bind = $mainMod, 2, workspace, 2                # Move focus to devops(sandboxed visual development workstation)
+bind = $mainMod, 3, workspace, 3                # Move focus to editor(digital mixed media editing, light weight sandbox)
 
 # Move active windows to different workspaces (For drag and drop operations)
 bind = $mainMod SHIFT, 1, movetoworkspace, 1
@@ -88,15 +81,15 @@ bind = $mainMod SHIFT, 3, movetoworkspace, 3
 # --- SLOPPY PLUGIN STUBS (Commented out with '#' for later use) ---
 # =====================================================================
 
-# plugin {
-#     hot-edge {
+# plugin {                  ##command center dash, drop from top with hotkey, for terminal and note pad from top and bottom left , discord and social top bottom right)
+    #     hot-edge {
 #         edge1 {
 #             enabled = 1
 #             side = right
 #             trigger_width = 10
 #             dwell_time = 120
 #             auto_hide = true
-#             command = pyprctl toggle monitor_shelf
+#             command = pyprctl toggle monitor_shelf  ##need to compile or find alternative##
 #         }
 #     }
 #     
