@@ -45,7 +45,15 @@
   # Hardware Acceleration & GPU Configurations (AMD Cezanne Vega Graphics)
   hardware.graphics = {
     enable = true;
-    enable32Bit = true; # Required for Wine/Steam gaming
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      amdvlk          
+      rocmPackages.clr
+    ];
+  };
+
+  environment.variables = {
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json";
   };
 
   # Network Interface Configurations (Realtek Ethernet & Wi-Fi)
