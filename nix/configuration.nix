@@ -1,4 +1,3 @@
-# Save this at: ~/dotfiles/nixos/configuration.nix
 { config, pkgs, inputs, ... }:
 
 {
