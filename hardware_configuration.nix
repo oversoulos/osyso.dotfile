@@ -24,22 +24,28 @@
   };
   boot.extraModulePackages = [ ];
 
-  # File Systems Configuration
-  # REPLACE /dev/disk/by-uuid/... with your actual partition UUIDs!
+
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/REPLACE_WITH_YOUR_ROOT_UUID";
-      fsType = "ext4"; # Replace if using btrfs/zfs
+    { device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [ "subvol=@" "compress=zstd" "noatime" ]; # Enables space-saving for AI models
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/REPLACE_WITH_YOUR_BOOT_UUID";
+  fileSystems."/home" =
+    { device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+    };
+
+   fileSystems."/boot" =
+    { device = "/dev/nvme0n1p1"; 
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  # Swap space configuration (Optional, recommended since you have 12GB RAM)
-  swapDevices = [ 
-    # Example: { device = "/dev/disk/by-uuid/REPLACE_WITH_SWAP_UUID"; }
+  # Map your physical swap partition directly using its raw path
+  swapDevices = [
+    { device = "/dev/nvme0n1p2"; }
   ];
 
   # Hardware Acceleration & GPU Configurations (AMD Cezanne Vega Graphics)
