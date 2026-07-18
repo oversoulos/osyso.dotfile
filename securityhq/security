@@ -24,3 +24,27 @@
     };
   };
 }
+  # =====================================================================
+  # --- WIREGUARD VPN PIPELINE RUNTIME ---
+  # =====================================================================
+  networking.wireguard.interfaces = {
+    # This creates a native network interface named "thevoid"
+    thevoid = {
+      ips = [ "10.55.0.1/16" ]; # Your local IP inside your WireGuard mesh
+      listenPort = 51820;
+
+      # Path to your decrypted physical key file on this drive
+      privateKeyFile = "/etc/wireguard/private_key";
+
+      # Define the remote servers/nodes you want to bridge into
+      peers = [
+        {
+          # Example VPS Node
+          publicKey = "PASTE_THE_REMOTE_VPS_PUBLIC_KEY_HERE";
+          allowedIPs = [ "10.55.0.0/16" ]; # Route all network mesh traffic
+          endpoint = "123.45.67.89:51820";  # Public IP and port of your server
+          persistentKeepalive = 25;        # Keeps connection alive through firewalls
+        }
+      ];
+    };
+  };
