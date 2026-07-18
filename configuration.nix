@@ -47,10 +47,9 @@
   services.flatpak.enable = true;
   services.displayManager.ly.enable = true; 
 
-  #  programs.direnv = {
+  programs.direnv = {
     enable = true;
     nix-direnv.enable = true; # Speeds up loading using cached builds
-    echo "use flake" > .envrc
   };
 
   # Rootless Podman Container Infrastructure
