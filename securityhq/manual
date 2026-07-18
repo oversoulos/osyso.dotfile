@@ -8,3 +8,12 @@ wg genkey | sudo tee private_key | wg pubkey | sudo tee public_key
 
 # 3. Secure the files so standard users cannot read your private token
 sudo chmod 600 private_key public_key
+
+
+
+{
+  # Quick network control panel shortcuts
+  vpn-up   = "sudo systemctl start wireguard-thevoid.service";
+  vpn-down = "sudo systemctl stop wireguard-thevoid.service";
+  vpn-stat = "sudo wg show"; # Instantly prints peers, data sent, and ping latency
+}
