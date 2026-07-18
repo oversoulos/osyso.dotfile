@@ -1,0 +1,10 @@
+# 1. Create a secure directory on your target drive partition
+sudo mkdir -p /mnt/etc/wireguard
+sudo chmod 700 /mnt/etc/wireguard
+
+# 2. Generate your secure private and public key pairs
+cd /mnt/etc/wireguard
+wg genkey | sudo tee private_key | wg pubkey | sudo tee public_key
+
+# 3. Secure the files so standard users cannot read your private token
+sudo chmod 600 private_key public_key
