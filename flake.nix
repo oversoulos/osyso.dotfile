@@ -1,8 +1,9 @@
 {
-  description = "Oversoul Modular Hyprland Workspace";
+  description = "osyso";
 
   inputs = {
-    # Aligned to stable 24.11 tracking loop
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05"; 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -31,7 +32,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.oversoulos = import ./home/oversoul.nix;
+          home-manager.users.milk = import ./home/milk.nix;
         }
       ];
     };
