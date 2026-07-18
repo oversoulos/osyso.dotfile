@@ -27,3 +27,8 @@
   vpn-down = "sudo systemctl stop wireguard-thevoid.service";
   vpn-stat = "sudo wg show"; # Instantly prints peers, data sent, and ping latency
 }
+
+{
+  set-graphics = "echo 'use flake .#graphics' > .envrc && direnv allow";
+  set-video    = "echo 'use flake .#video' > .envrc && direnv allow";
+}
