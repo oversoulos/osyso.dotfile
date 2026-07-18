@@ -1,31 +1,40 @@
 {
-  description = "Hyprland Master Blueprint Flake";
-
-{
-  description = "Hyprland Master Blueprint Flake";
+  description = "Oversoul Modular Hyprland Workspace";
 
   inputs = {
-    # Channel Lock
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    
-    # Core Window Manager Link
-    hyprland.url = "github:hyprwm/Hyprland";
+    # Aligned to stable 24.11 tracking loop
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    # Hyprglass Input
+    # Injected Core Hyprland Engine & Plugins Matrix
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprglass = {
       url = "github:hyprnux/hyprglass";
       inputs.hyprland.follows = "hyprland";
     };
   };
 
-  # Fixed: Cleaned inputs tracking loop
-  outputs = { self, nixpkgs, hyprland, hyprglass, ... }@inputs: {
-    nixosConfigurations = {
-      osyso = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./configuration.nix ];
-        specialArgs = { inherit inputs; };
-      };
+  # Fixed: Removed the syntax breaking '...' shorthand from this outputs line
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, hyprglass, ... }@inputs: {
+    nixosConfigurations.osyso = nixpkgs.lib.nixosSystem { # Anchored to your custom machine name
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./configuration.nix
+        nixos-hardware.nixosModules.common-cpu-amd
+        nixos-hardware.nixosModules.common-gpu-amd
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.oversoulos = import ./home/oversoul.nix;
+        }
+      ];
     };
   };
 }
+
