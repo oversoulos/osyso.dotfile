@@ -47,6 +47,12 @@
   services.flatpak.enable = true;
   services.displayManager.ly.enable = true; 
 
+  #  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true; # Speeds up loading using cached builds
+    echo "use flake" > .envrc
+  };
+
   # Rootless Podman Container Infrastructure
   virtualisation.podman = {
     enable = true;
@@ -55,10 +61,10 @@
   };
 
   # 6. AUTHENTICATED USER PERMISSIONS
-  users.users.myusername = {  
+  users.users.milk = {  
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "podman" ];
-    initialPassword = "password"; 
+    initialPassword = "4713"; 
   };
 
   # 7. WINDOW MANAGER (HYPRLAND & PLUGINS)
