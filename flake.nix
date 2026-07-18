@@ -19,9 +19,8 @@
     };
   };
 
-  # Fixed: Removed the syntax breaking '...' shorthand from this outputs line
   outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, hyprglass, ... }@inputs: {
-    nixosConfigurations.osyso = nixpkgs.lib.nixosSystem { # Anchored to your custom machine name
+    nixosConfigurations.osyso = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
