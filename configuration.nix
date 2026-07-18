@@ -13,7 +13,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "vfat" ];
   boot.initrd.luks.devices."root" = {
-    device = "/dev/disk/by-uuid/fcae9bb1-3eab-41b7-983f-b32ab02d48bf
+    device = "/dev/disk/by-uuid/203d80db-232d-4eb2-988f-5f89052c99ee
 "; 
     preLVM = true;
   };
