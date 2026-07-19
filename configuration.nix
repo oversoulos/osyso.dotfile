@@ -2,11 +2,12 @@
 
 {
   # THE IMPORT LAYER
-  imports = [ 
-    ./hardware-configuration.nix 
+imports = [ 
+    ./hardware_configuration.nix 
     ./packages.nix                 
-    ./security.nix                 
+    ./modules/securityhq/security.nix                 
   ];
+        
 
   # 1. BOOT & LUKS STORAGE
   boot.loader.systemd-boot.enable = true;
