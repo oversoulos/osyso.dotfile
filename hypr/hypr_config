@@ -1,22 +1,10 @@
+# =====================================================================
+# --- MASTER SYSTEM ENVIRONMENT & MODIFIERS ---
+# =====================================================================
+# Use the 'Super' key (Windows key) as your main shortcut modifier
+$mainMod = SUPER
 
-oversoul= 1, gapsin:5, gapsout:10, border:true, decorate:true, default:true
-####drop down or hot key drop down command center controller for system, utils, ai pipeline, hosting, vpn, network, security, workstation progress sats, 
-mirrored in cli.. sys moniters on default, workstation sit rep  updates with activity all corrilating progress. 
-#### hotkey chat box interface with ai when its active. small black screen with neon purple thin border. 
-#### quater window with full screen toggle for youtube/spotify tab(spotify widgetfor workspaces) larger window with obsidan/file manager tabs. 
-#### will default to this workspace for casual usage. hot edge, hidden/docked and hotkeyed  for terminal and note pad from top and bottom left , 
-discord(idles, no backgrown after idling out unless plugins to external active)  and social top bottom right. app search bar/cmd line/web search bar
-either stacked or itnegrated bottom center,system/network montiors bottom right and left)
 
-devops = 3, gapsin:8, gapsout:16, border:true, decorate:minimal 
-##simple shelled environment, locked into dev folder tree, new projects triger automatatic flake/shell 
-iso launch. same apps docked around the screens hot edges. devops devshell devenv or whatever, isolated sandbox for project management and testing with localhost, 
-local ai, and publishing pipeline. dev tools locked into this space exclusively
-
-editor = 3, gapsin:0, gapsout:0, border:false, decorate:minilmal inverted fromt he other dark schema. same as dev, but with my image archive, and editing tools for
-images and writing. will use this space for school as well so obsidian  tabbed into  one window, browser tapped into main window, inactive when tooling.. 
-
-alwayss silence non syetem critical background processes.
 # =====================================================================
 # --- PER-WORKSPACE AESTHETIC PIPELINE ---
 # =====================================================================
@@ -44,14 +32,14 @@ general {
     gaps_out = 12                 # Gap between windows and screen edges
     border_size = 2               # Outer window border width (pixels)
     
-    # dark back ground with minima hazy neon pallet, irridecent  boarders, window frames, backlit , soft 
+    # dark background with minimal hazy neon palette, iridescent borders, window frames, backlit, soft 
     col.active_border = rgba(33cceeee) rgba(ff79c6ee) 45deg
     col.inactive_border = rgba(595959aa)
 }
 
 decoration {
     rounding = 10                 # Smoothly rounds your window edges
-    active_opacity = 1.0          # Opaque when working transparent lur when ot of focus
+    active_opacity = 1.0          # Opaque when working, transparent blur when out of focus
     inactive_opacity = 0.9        # Subtle dim on background apps
 }  
  
@@ -62,8 +50,8 @@ animations {
     animation = workspaces, 1, 5, default, slide
 }
 
-### bold nerd font  that i can hotkey from standard size, about 26 for when im sitting further from my screen (applies to mouse  muted flat  periwinkle,  pink , yellows to comforrtably contrast 
-darker back ground windows.. 
+### bold nerd font that i can hotkey from standard size, about 26 for when im sitting further from my screen (applies to mouse muted flat periwinkle, pink, yellows to comfortably contrast darker background windows.. 
+
 
 # =====================================================================
 # --- GEOMETRY & WINDOW RULES ---
@@ -84,17 +72,19 @@ windowrulev2 = move 2% 50%, class:^(spotify)$ # Anchors it to the bottom-left qu
 windowrulev2 = tile, class:^(obsidian)$
 windowrulev2 = tile, class:^(nemo)$
 
+
 # =====================================================================
 # --- PHASE 4D: ACTIVITY KEYBINDS & QUICK-DRAW HOTKEYS ---
 # =====================================================================
-
-# Use the 'Super' key (Windows key) as your main shortcut modifier
-$mainMod = SUPER
 
 # Instant Terminal / File System Quick-Draw Hotkeys
 bind = $mainMod, RETURN, exec, ghostty          # Hitting Enter draws a new command terminal
 bind = $mainMod, E, exec, nemo                  # Hitting E draws your file tree manager
 bind = $mainMod, SPACE, exec, rofi-wayland -show drun # Hitting Space draws your app drawer
+
+# Pyprland Slide-In Side Panels
+bind = $mainMod, GRAVE, exec, pyprctl toggle term    # Draw down the hidden terminal from the top
+bind = $mainMod, D, exec, pyprctl toggle discord      # Draw down your social deck from the right side
 
 # Basic Window Controls
 bind = $mainMod, Q, killactive                  # Close focused program window
@@ -102,7 +92,7 @@ bind = $mainMod, F, fullscreen, 0               # Toggle full screen toggle
 bind = $mainMod, V, togglefloating,             # Force a window to float over your canvas
 
 # Workspace Switching Hotkeys
-bind = $mainMod, 1, workspace, 1                # Move focus to oversoul(command center drop in dash board command center over casual/multiuse computing space)
+bind = $mainMod, 1, workspace, 1                # Move focus to oversoul(command center drop in dash board over casual space)
 bind = $mainMod, 2, workspace, 2                # Move focus to devops(sandboxed visual development workstation)
 bind = $mainMod, 3, workspace, 3                # Move focus to editor(digital mixed media editing, light weight sandbox)
 
@@ -117,7 +107,7 @@ bind = $mainMod SHIFT, 3, movetoworkspace, 3
 # =====================================================================
 
 # plugin {                  ##command center dash, drop from top with hotkey, for terminal and note pad from top and bottom left , discord and social top bottom right)
-    #     hot-edge {
+#     hot-edge {
 #         edge1 {
 #             enabled = 1
 #             side = right
