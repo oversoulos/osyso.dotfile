@@ -17,6 +17,23 @@ editor = 3, gapsin:0, gapsout:0, border:false, decorate:minilmal inverted fromt 
 images and writing. will use this space for school as well so obsidian  tabbed into  one window, browser tapped into main window, inactive when tooling.. 
 
 alwayss silence non syetem critical background processes.
+# =====================================================================
+# --- PER-WORKSPACE AESTHETIC PIPELINE ---
+# =====================================================================
+
+# WORKSPACE 1: OVERSOUL (The Visual Command Center)
+workspace = 1, gapsin:5, gapsout:10, border:true, decorate:true, default:true
+windowrulev2 = opacity 1.0 0.9, workspace:1     # Soft transparency for background apps
+
+# WORKSPACE 2: DEVOPS (The Minimal Sandbox)
+# Stripped down, no extra decorations, larger spacing for clear focus
+workspace = 2, gapsin:8, gapsout:16, border:true, decorate:false
+windowrulev2 = opacity 1.0 1.0, workspace:2     # Full solid opacity for text reading
+
+# WORKSPACE 3: EDITOR (The Inverted School & Media Vault)
+# Zero gaps, zero borders, completely flat look
+workspace = 3, gapsin:0, gapsout:0, border:false, decorate:false
+
 
 # ====================================================================
 # --- PHASE 4C: MASTER AESTHETICS (GAPS & ROUNDING) ---
@@ -48,6 +65,24 @@ animations {
 ### bold nerd font  that i can hotkey from standard size, about 26 for when im sitting further from my screen (applies to mouse  muted flat  periwinkle,  pink , yellows to comforrtably contrast 
 darker back ground windows.. 
 
+# =====================================================================
+# --- GEOMETRY & WINDOW RULES ---
+# =====================================================================
+
+# 🟣 The AI Chatbox (Small black screen, neon purple border)
+windowrulev2 = float, title:^(AI-Chatbox)$
+windowrulev2 = size 400 600, title:^(AI-Chatbox)$
+windowrulev2 = bordercolor rgba(8800ffeed) rgba(bf00ffeed) 45deg, title:^(AI-Chatbox)$
+
+# 📐 Oversoul Quarter-Window Layouts (Casual Mode)
+# Forces media to stay floating in a clean quadrant until you full-screen toggle it
+windowrulev2 = float, class:^(spotify)$
+windowrulev2 = size 25% 45%, class:^(spotify)$
+windowrulev2 = move 2% 50%, class:^(spotify)$ # Anchors it to the bottom-left quarter
+
+# Tabbed Stacking for Notes and Files
+windowrulev2 = tile, class:^(obsidian)$
+windowrulev2 = tile, class:^(nemo)$
 
 # =====================================================================
 # --- PHASE 4D: ACTIVITY KEYBINDS & QUICK-DRAW HOTKEYS ---
