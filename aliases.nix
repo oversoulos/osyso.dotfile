@@ -8,9 +8,7 @@
   debug-tools = "$HOME/scripts/debug-tools.sh";
   mode = "mode-switch";
   nexus = "xdg-open $HOME/oversoul/dashboard.html";
-}
 
-{
   # Quick-draw environment creation hotkeys
   set-node = "echo 'use flake .#node' > .envrc && direnv allow";
   set-ml   = "echo 'use flake .#ml' > .envrc && direnv allow";
@@ -19,21 +17,15 @@
   # Fast sandbox security clearance
   allow = "direnv allow";
   deny  = "direnv deny";
-}
 
-{
   # Quick network control panel shortcuts
   vpn-up   = "sudo systemctl start wireguard-thevoid.service";
   vpn-down = "sudo systemctl stop wireguard-thevoid.service";
   vpn-stat = "sudo wg show"; # Instantly prints peers, data sent, and ping latency
-}
 
-{
   set-graphics = "echo 'use flake .#graphics' > .envrc && direnv allow";
   set-video    = "echo 'use flake .#video' > .envrc && direnv allow";
-}
 
-{
   # Ghostty Custom Dynamic Scaling Shortcut Triggers
   zoom-on  = "ghostty +config='font-size=26'";
   zoom-off = "ghostty +config='font-size=12'";
