@@ -1,22 +1,21 @@
-# 1. Create a secure directory on your target drive partition
-sudo mkdir -p /mnt/etc/wireguard
-sudo chmod 700 /mnt/etc/wireguard
-
-# 2. Generate your secure private and public key pairs
-cd /mnt/etc/wireguard
-wg genkey | sudo tee private_key | wg pubkey | sudo tee public_key
-
-# 3. Secure the files so standard users cannot read your private token
-sudo chmod 600 private_key public_key
 ===================================================================
                   OSYSO COMMAND STATIONS CHEAT SHEET              
 ===================================================================
 
+[ PRE-INSTALLATION WIREGUARD CONFIG PIPELINE ]
+  1. Create secure key directory:
+     sudo mkdir -p /mnt/etc/wireguard && sudo chmod 700 /mnt/etc/wireguard
+  2. Generate mesh keypair:
+     cd /mnt/etc/wireguard && wg genkey | sudo tee private_key | wg pubkey | sudo tee public_key
+  3. Secure token access:
+     sudo chmod 600 private_key public_key
+
 [ WORKSPACE CONTROL HUB ]
-  - Super + 1       : Jump to OVERSOUL (Dashboard & Operations Platform)
-  - Super + 2       : Jump to DEVOPS (Isolated Sandbox Environment)
-  - Super + 3       : Jump to EDITOR (School Vault & Graphic Station)
-  - Super + Space   : Unified App Launcher / Shell Command Prompt
+  - Super + 1        : Jump to OVERSOUL (Dashboard & Operations Platform)
+  - Super + 2        : Jump to DEVOPS (Isolated Sandbox Environment)
+  - Super + 3        : Jump to EDITOR (School Vault & Graphic Station)
+  - Super + Space    : Unified App Launcher / Shell Command Prompt
+  - Super + Enter    : Quick-draw a fresh Kitty Terminal Station
   - Super + Shift + C: Live Reload Whole Desktop Aesthetic Layout
 
 [ PYPRLAND QUICK-DRAW SIDE PANELS ]
@@ -34,30 +33,3 @@ sudo chmod 600 private_key public_key
   - vpn-up / down    : Force connect or drop secure network infrastructure
 
 ===================================================================
-
-
-
-# =====================================================================
-# --- AUTOMATED WORKSPACE STARTUP PIPELINE (EXEC-ONCE) ---
-# =====================================================================
-
-# Workspace 1 (Oversoul): Launch Kitty with your tmux command center and cheat sheet
-exec-once = [workspace 1 silent] kitty -e tmux new-session -s oversoul-deck "cat /modules/securityhq/manual && zsh"
-exec-once = [workspace 1 silent] brave
-
-# Workspace 2 (Devops): Communication and social platforms running background idle loops
-exec-once = [workspace 2 silent] discord --minimized
-
-# Workspace 3 (Editor): Secondary media layout streaming engines
-exec-once = [workspace 3 silent] spotify
-
-# Initialize the backend slide-out panel daemon
-exec-once = pyprland
-
-
-# =====================================================================
-# --- PHASE 4D: ACTIVITY KEYBINDS & QUICK-DRAW HOTKEYS ---
-# =====================================================================
-
-# Instant Terminal Quick-Draw Hotkey
-bind = $mainMod, RETURN, exec, kitty          # Hitting Enter draws a new Kitty terminal
