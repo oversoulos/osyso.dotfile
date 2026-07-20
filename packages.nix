@@ -1,28 +1,48 @@
-# Save this at: ~/dotfiles/nixos/packages.nix
 { pkgs, ... }:
-let
-  # This safely opens up a clean portal to read the unstable channel
-  unstable = import (builtins.fetchTarball "channel:nixos-unstable") { 
-    config.allowUnfree = true; 
-  };
-in
+
 {
+  # Allow unfree licensing for specific system applications
+  nixpkgs.config.allowUnfree = true;
+
+  # =====================================================================
+  # --- GLOBAL APPS MATRIX (Available Everywhere) ---
+  # =====================================================================
   environment.systemPackages = with pkgs; [
-    # Core User GUI Apps
-    brave discord spotify telegram nemo okular xarchiver
-    unstable.ghostty unstable.obsidian valent
+    # Core Shell & Multiplexer Infrastructure
+    ghostty               # Native Wayland terminal emulator (Your main choice)
+    kitty                 # Fail-safe secondary backup terminal
+    tmux                  # Decoupled control deck manager (Phone sync engine)
+    starship              # Cross-shell prompt enhancement engine
 
-    # Your Creative Production Suite (Zero Overlap)
-    gimp inkscape krita peasce shotcut
+    # Visual Core Desktop Utilities
+    waybar                # Highly customizable status line bar for Hyprland
+    rofi-wayland          # App launcher, command bar, and fallback search engine
+    swww                  # Smooth GPU-accelerated wallpaper management engine
+    mako                  # Minimalist Wayland notification daemon daemon
+    networkmanagerapplet  # System tray interactive configuration icon for Wi-Fi
+    nemo                  # Light, graphical layout tree file manager
+    libnotify             # Core backend mapping for security alerts
 
-    # System Visibility, Searching & Scripting Core
-    micro git git-lfs direnv jq yq ripgrep fd fzf bat eza zellij
-    httpie age sops gnupg btop ncdu pciutils usbutils 
-    ping dnsutils
+    # System Status, Monitoring & DevOps Utils
+    btop                  # High-performance hardware visual state monitor
+    nvtopPackages.amd     # Real-time AMD compute monitor for local GGUF scaling
+    vulkan-tools          # Diagnostic layers for computing verification (vkcube/vulkaninfo)
+    clinfo                # OpenCL runtime platform mapping verifier
+    git                   # Source control tracking engine
+    curl                  # Command line network payload delivery tool
+    xdg-utils             # Native cross-workspace path browser management layer
 
-    # Standalone Wayland Elements & Desktop Helpers
-    rofi-wayland waybar hyprpaper wl-clipboard
-    blueman networkmanagerapplet
+    # Embedded Heavy System Docks
+    obs-studio            # Low-level pipewire system media capture suite
+  ];
+
+  # =====================================================================
+  # --- TYPOGRAPHY ENGINE (System Fonts Matrix) ---
+  # =====================================================================
+  fonts.packages = with pkgs; [
+    # Nerd Font suite required to render glyphs and symbols across tools
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.sauce-code-pro
   ];
 }
-
