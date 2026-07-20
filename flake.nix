@@ -2,24 +2,30 @@
   description = "osyso Master System Orchestration Flake";
 
   inputs = {
-    # Core Base OS Stable Channel Layer
+    inputs = {
+    # Core Base OS Layers
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # User Profile Configuration Layer (Aligned to match the core OS channel)
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hardware Tuning Matrix (For your AMD Cezanne/Zen 3 architecture optimization)
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    # Injected Core Hyprland Engine & Plugins Matrix
+    # Master Hyprland Engine Wrapper
     hyprland.url = "github:hyprwm/Hyprland";
+
+    # 🟢 FORCE ALL PLUGINS TO CORRELATE DEPENDENCIES NATIVELY
     hyprglass = {
       url = "github:hyprnux/hyprglass";
-      inputs.hyprland.follows = "hyprland";
+      inputs.hyprland.follows = "hyprland"; # Locks dependencies together
+    };
+    
+    hypr-hotedge = {
+      url = "github:anywheretw/hypr-hotedge"; # Your slide-out edge tracker repo
+      inputs.hyprland.follows = "hyprland"; # Prevents header compilation drift
     };
   };
 
