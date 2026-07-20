@@ -24,29 +24,39 @@
   };
   boot.extraModulePackages = [ ];
 
-
+  # 1. Mount the main root directory subvolume
   fileSystems."/" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-      options = [ "subvol=@" "compress=zstd" "noatime" ]; # Enables space-saving for AI models
+      options = [ "subvol=@" "compress=zstd" "noatime" ];
     };
 
+  # 2. Mount your clean user files subvolume
   fileSystems."/home" =
     { device = "/dev/mapper/root";
       fsType = "btrfs";
-        { device = "/dev/disk/by-uuid/36772803-a096-46c2-8aaa-146ba0590637"; }
-  ];
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
+    };
 
-   fileSystems."/boot" =
+  # 3. Mount your dedicated Nix store package cache subvolume
+  fileSystems."/nix" =
+    { device = "/dev/mapper/root";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
+    };
+
+  # 4. Mount your physical unencrypted UEFI Boot partition
+  fileSystems."/boot" =
     { device = "/dev/nvme0n1p1"; 
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  # Map your physical swap partition directly using its raw path
+  # 5. Connect your active swap space partition
   swapDevices = [
     { device = "/dev/nvme0n1p2"; }
   ];
+
 
   # Hardware Acceleration & GPU Configurations (AMD Cezanne Vega Graphics)
   hardware.graphics = {
