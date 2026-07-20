@@ -34,6 +34,12 @@
 
     # Embedded Heavy System Docks
     obs-studio            # Low-level pipewire system media capture suite
+
+    # Web, Social, and Media Autostart Apps
+    brave                 # Privacy-first browser running on Workspace 1
+    discord               # Communication hub running on Workspace 2
+    spotify               # Streaming client running on Workspace 3
+    
   ];
 
   # =====================================================================
