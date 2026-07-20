@@ -8,7 +8,7 @@
   # --- GLOBAL APPS MATRIX (Available Everywhere) ---
   # =====================================================================
   environment.systemPackages = with pkgs; [
-    # Core Shell & Multiplexer Infrastructure
+    # Core Shell & Terminal Infrastructure
     ghostty               # Native Wayland terminal emulator (Your main choice)
     kitty                 # Fail-safe secondary backup terminal
     tmux                  # Decoupled control deck manager (Phone sync engine)
@@ -40,6 +40,11 @@
     discord               # Communication hub running on Workspace 2
     spotify               # Streaming client running on Workspace 3
     
+    # Casual & Media Vault Tools
+    obsidian              # Modern note management engine
+    vlc                   # Robust backup video encoder layer
+    mpv                   # Light, blazing-fast Wayland native video layout player
+    valent                # Desktop GUI implementation wrapper for phone sync
   ];
 
   # =====================================================================
@@ -48,7 +53,14 @@
   fonts.packages = with pkgs; [
     # Nerd Font suite required to render glyphs and symbols across tools
     nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-    nerd-fonts.sauce-code-pro
-  ];
-}
+  ]; # <-- Cleanly closes your font package tracking array!
+
+  # =====================================================================
+  # --- DEVICE SYNCING PIPELINE (KDE Connect Protocol) ---
+  # =====================================================================
+  # Opens up the specific UDP/TCP ports needed for your phone to talk to osyso over Wi-Fi
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.valent; # Uses the sleeker, lighter GTK client instead of full KDE bloat
+  };
+} # <-- Securely closes your master configuration wrapper!
