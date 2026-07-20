@@ -67,14 +67,17 @@ imports = [
     initialPassword = "4713"; 
   };
 
-  # 7. WINDOW MANAGER (HYPRLAND & PLUGINS)
+  # 7. WINDOW MANAGER (HYPRLAND & PLUGINS INJECTION)
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    
+    # This automatically draws your precompiled plug outputs right into runtime memory!
     plugins = [
       inputs.hyprglass.packages.${pkgs.stdenv.hostPlatform.system}.default
       pkgs.hyprlandPlugins.hyprexpo
+      pkgs.hypr-hot-edge-built # <-- Hooks the overlay compilation directly into Hyprland launch
     ];
   };
 
