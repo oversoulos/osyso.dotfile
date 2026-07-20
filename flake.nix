@@ -28,14 +28,10 @@
       inputs.hyprland.follows = "hyprland"; # Prevents header compilation drift
     };
   };
-
-  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, hyprglass, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixos-hardware, hyprland, hypr-hot-edge, ... }@inputs: {
     nixosConfigurations.osyso = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      
-      # This hands off inputs (like hyprglass) to your configuration files cleanly
       specialArgs = { inherit inputs; };
-      
       modules = [
         ./configuration.nix
         nixos-hardware.nixosModules.common-cpu-amd
@@ -44,12 +40,32 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          
-          # Match this user parameter ("milk" or "myusername") directly to configuration.nix
           home-manager.users.milk = import ./home/milk.nix;
+
+          # 🟢 THE INLINE COMPILATION DRIVER
+          # This forces Nix to cleanly compile claychinasky/hypr-hot-edge directly
+          # from source using the matching headers from your running Hyprland package.
+          nixpkgs.overlays = [
+            (final: prev: {
+              hypr-hot-edge-built = final.stdenv.mkDerivation {
+                pname = "hypr-hot-edge";
+                version = "git";
+                src = hypr-hot-edge; # References the GitHub input repository path
+
+                nativeBuildInputs = [ final.cmake final.pkg-config ];
+                buildInputs = [ inputs.hyprland.packages.${final.system}.hyprland ];
+
+                # Standard CMake parameters to output the shared object binary file safely
+                cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
+
+                installPhase = ''
+                  mkdir -p $out/lib
+                  cp *.so $out/lib/ 2>/dev/null || cp build/*.so $out/lib/
+                '';
+              };
+            })
+          ];
         }
       ];
     };
   };
-}
-
