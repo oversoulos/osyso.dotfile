@@ -12,12 +12,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "vfat" ];
-  
+
   boot.initrd.luks.devices."root" = {
     # Changed to target the raw partition path to prevent swap collision crashes
-    device = "/dev/nvme0n1p3"; 
+    device = "/dev/nvme0n1p3";
     preLVM = true;
   };
+
   # 2. HARDWARE PIPELINE & ENVIRONMENT OVERRIDES
   hardware.cpu.amd.updateMicrocode = true;
   hardware.graphics = {
@@ -30,7 +31,6 @@
     NIXOS_OZONE_WL = "1"; # Forces electron apps to use native Wayland
     VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json"; # Maps your AMD Vulkan driver
   };
-
 
   # 3. CORE SYSTEM NETWORKING & REPLICA LOCALES
   networking.hostName = "osyso";
@@ -73,30 +73,29 @@
     initialPassword = "4713";
   };
 
-   # 7. WINDOW MANAGER (HYPRLAND & PLUGINS INJECTION)
+  # 7. WINDOW MANAGER (HYPRLAND & PLUGINS INJECTION)
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    
+
+    # Built via the overlay in flake.nix — see buildHyprPlugin there
     plugins = [
-      inputs.hyprglass.packages.${pkgs.stdenv.hostPlatform.system}.default
-      pkgs.hyprlandPlugins.hyprexpo
       pkgs.hypr-hot-edge-built
+      pkgs.hyprglass-built
+      pkgs.hyprlandPlugins.hyprexpo # already in nixpkgs, no wrapping needed
     ];
   };
 
   # 7b. ENLIGHTENMENT (FALLBACK DESKTOP)
   services.xserver.enable = true;
   services.xserver.desktopManager.enlightenment.enable = true;
-  services.xserver.desktopManager.enlightenment.enable = true;
-
 
   # 8. ENVIRONMENT SYSTEM ADJUSTMENTS
   # Note: Global packages are managed cleanly inside your imported packages.nix file.
   environment.systemPackages = with pkgs; [
-    # Added koboldcpp here since it isn't in your main packages inventory
-    koboldcpp
+    koboldcpp # Added here since it isn't in your main packages inventory
+    pyprland  # Scratchpad daemon used by .config/hypr/pyprland.toml — already in nixpkgs
   ];
 
   # 9. BACKGROUND AUTOMATION ENGINE & NIX SETTINGS
