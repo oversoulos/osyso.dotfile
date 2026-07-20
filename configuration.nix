@@ -18,13 +18,19 @@
     device = "/dev/nvme0n1p3"; 
     preLVM = true;
   };
-
-  # 2. HARDWARE PIPELINE
+  # 2. HARDWARE PIPELINE & ENVIRONMENT OVERRIDES
   hardware.cpu.amd.updateMicrocode = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
+
+  # Environment Overrides for Wayland and Vulkan Local AI Compute layers
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # Forces electron apps to use native Wayland
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json"; # Maps your AMD Vulkan driver
+  };
+
 
   # 3. CORE SYSTEM NETWORKING & REPLICA LOCALES
   networking.hostName = "osyso";
