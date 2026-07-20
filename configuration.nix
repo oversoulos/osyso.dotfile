@@ -2,20 +2,20 @@
 
 {
   # THE IMPORT LAYER
-imports = [ 
-    ./hardware_configuration.nix 
-    ./packages.nix                 
-    ./modules/securityhq/security.nix                 
+  imports = [
+    ./hardware_configuration.nix
+    ./packages.nix
+    ./modules/securityhq/security.nix
   ];
-        
 
   # 1. BOOT & LUKS STORAGE
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "vfat" ];
+  
   boot.initrd.luks.devices."root" = {
-    device = "/dev/disk/by-uuid/203d80db-232d-4eb2-988f-5f89052c99ee
-"; 
+    # Changed to target the raw partition path to prevent swap collision crashes
+    device = "/dev/nvme0n1p3"; 
     preLVM = true;
   };
 
@@ -43,10 +43,10 @@ imports = [
   };
 
   # 5. INTEGRATED SERVICES & SANDBOX RUNTIMES
-  services.gvfs.enable = true; 
+  services.gvfs.enable = true;
   services.udisks2.enable = true;
   services.flatpak.enable = true;
-  services.displayManager.ly.enable = true; 
+  services.displayManager.ly.enable = true;
 
   programs.direnv = {
     enable = true;
@@ -61,10 +61,10 @@ imports = [
   };
 
   # 6. AUTHENTICATED USER PERMISSIONS
-  users.users.milk = {  
+  users.users.milk = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "audio" "podman" ];
-    initialPassword = "4713"; 
+    initialPassword = "4713";
   };
 
   # 7. WINDOW MANAGER (HYPRLAND & PLUGINS INJECTION)
@@ -81,31 +81,18 @@ imports = [
     ];
   };
 
-  # 8. ENVIRONMENT PACKAGES
+  # 8. ENVIRONMENT SYSTEM ADJUSTMENTS
+  # Note: Global packages are managed cleanly inside your imported packages.nix file.
   environment.systemPackages = with pkgs; [
-    # Terminal Options (Choose or install both)
-    ghostty
-    kitty            
-    
-    # UI/Desktop Utilities
-    waybar           
-    rofi-wayland     
-    swww             
-    mako             
-    networkmanagerapplet 
-    pyprland
-
-    # AI Compute & Vulkan Diagnostics
-    koboldcpp         
-    vulkan-tools      
-    clinfo            
+    # Added koboldcpp here since it isn't in your main packages inventory
+    koboldcpp
   ];
-  
+
   # 9. BACKGROUND AUTOMATION ENGINE & NIX SETTINGS
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ]; 
-      auto-optimise-store = true; 
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
     };
     gc = {
       automatic = true;
@@ -116,10 +103,10 @@ imports = [
 
   system.autoUpgrade = {
     enable = true;
-    allowReboot = false; 
+    allowReboot = false;
     dates = "04:00";
   };
 
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "24.11"; 
+  system.stateVersion = "24.11";
 }
