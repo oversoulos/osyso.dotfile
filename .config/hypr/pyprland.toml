@@ -3,9 +3,10 @@ plugins = ["scratchpads"]
 
 [scratchpads.term]
 animation = "fromTop"
-command = "ghostty --title=scratchpad"
+command = "kitty --title=scratchpad"
 class = "scratchpad"
 size = "100% 40%"
+
 
 [scratchpads.discord]
 animation = "fromRight"
