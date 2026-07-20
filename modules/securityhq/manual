@@ -34,3 +34,30 @@ sudo chmod 600 private_key public_key
   - vpn-up / down    : Force connect or drop secure network infrastructure
 
 ===================================================================
+
+
+
+# =====================================================================
+# --- AUTOMATED WORKSPACE STARTUP PIPELINE (EXEC-ONCE) ---
+# =====================================================================
+
+# Workspace 1 (Oversoul): Launch Kitty with your tmux command center and cheat sheet
+exec-once = [workspace 1 silent] kitty -e tmux new-session -s oversoul-deck "cat /modules/securityhq/manual && zsh"
+exec-once = [workspace 1 silent] brave
+
+# Workspace 2 (Devops): Communication and social platforms running background idle loops
+exec-once = [workspace 2 silent] discord --minimized
+
+# Workspace 3 (Editor): Secondary media layout streaming engines
+exec-once = [workspace 3 silent] spotify
+
+# Initialize the backend slide-out panel daemon
+exec-once = pyprland
+
+
+# =====================================================================
+# --- PHASE 4D: ACTIVITY KEYBINDS & QUICK-DRAW HOTKEYS ---
+# =====================================================================
+
+# Instant Terminal Quick-Draw Hotkey
+bind = $mainMod, RETURN, exec, kitty          # Hitting Enter draws a new Kitty terminal
