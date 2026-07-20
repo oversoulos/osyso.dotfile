@@ -32,3 +32,14 @@
   set-graphics = "echo 'use flake .#graphics' > .envrc && direnv allow";
   set-video    = "echo 'use flake .#video' > .envrc && direnv allow";
 }
+
+{
+  # Ghostty Custom Dynamic Scaling Shortcut Triggers
+  zoom-on  = "ghostty +config='font-size=26'";
+  zoom-off = "ghostty +config='font-size=12'";
+
+  # Generic Shell Shortcuts
+  sys-clean = "nix-env --delete-generations old && nix-store --gc";
+}
+
+
