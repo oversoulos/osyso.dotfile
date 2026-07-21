@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Ensure this matches the home directory path of your system user account
@@ -21,6 +21,16 @@
 
   # Lets Home Manager manage your shell environment configuration settings
   programs.home-manager.enable = true;
+   
+   wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    plugins = [
+      pkgs.hypr-hot-edge-built
+      pkgs.hyprglass-built
+      pkgs.hyprlandPlugins.hyprexpo
+    ];
+  };
 
   # Match this version directly to the core OS channel release tag (24.11)
   home.stateVersion = "24.11";
