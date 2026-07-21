@@ -1,0 +1,35 @@
+===================================================================
+                  OSYSO COMMAND STATIONS CHEAT SHEET              
+===================================================================
+
+[ PRE-INSTALLATION WIREGUARD CONFIG PIPELINE ]
+  1. Create secure key directory:
+     sudo mkdir -p /mnt/etc/wireguard && sudo chmod 700 /mnt/etc/wireguard
+  2. Generate mesh keypair:
+     cd /mnt/etc/wireguard && wg genkey | sudo tee private_key | wg pubkey | sudo tee public_key
+  3. Secure token access:
+     sudo chmod 600 private_key public_key
+
+[ WORKSPACE CONTROL HUB ]
+  - Super + 1        : Jump to OVERSOUL (Dashboard & Operations Platform)
+  - Super + 2        : Jump to DEVOPS (Isolated Sandbox Environment)
+  - Super + 3        : Jump to EDITOR (School Vault & Graphic Station)
+  - Super + Space    : Unified App Launcher / Shell Command Prompt
+  - Super + Enter    : Quick-draw a fresh Kitty Terminal Station
+  - Super + Shift + C: Live Reload Whole Desktop Aesthetic Layout
+
+[ PYPRLAND QUICK-DRAW SIDE PANELS ]
+  - Super + ~ (Grave): Toggle Hidden Top Drop-Down System Terminal
+  - Super + D        : Toggle Hidden Right-Edge Social Panel (Discord)
+
+[ DYNAMIC ENVIRONMENT OVERRIDES ]
+  - set-node         : Inject Node.js 22, TypeScript, and Vite into Sandbox
+  - set-ml           : Launch Python Machine Learning Pipeline Matrix
+  - set-web          : Activate Python Web Stack, Postgres, and Redis Server
+  - allow            : Authorize directory sandbox clearance profile
+
+[ WIREGUARD MESH LIFELINE ]
+  - vpn-stat         : View active peer status updates and ping latency
+  - vpn-up / down    : Force connect or drop secure network infrastructure
+
+===================================================================
